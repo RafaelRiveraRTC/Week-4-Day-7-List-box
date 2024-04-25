@@ -16,9 +16,156 @@ namespace Week_4_Day_7_List_box
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        List<string> ItemsnPeople = new List <string> ();
+
+
+
+        List<People> people = new List<People>();
+       
+
+
+        List<string> DndItems = new List<string>
+        {
+            "Potion",
+            "BusterSword",
+            "SuperLance",
+            "BasaliskArmour",
+            "Medusa's Head",
+            "Dragon's Bane",
+            "Javalin of lightning",
+            "The throngler",
+            "Bob"
+        };
+
+        List<string> cranes = new List<string>
+        {
+            "RTX655",
+            "RT865BXL",
+            "GMK7450",
+            "GMK5350",
+            "RT635C"
+        };
+
+
+
+ 
+
+
+
+
         public MainWindow()
         {
             InitializeComponent();
+            ItemsnPeople.Add("Potion");
+            ItemsnPeople.Add("Dagger");
+            ItemsnPeople.Add("Handaxe");
+            ItemsnPeople.Add("Charles");
+            ItemsnPeople.Add("Mimic");
+            ItemsnPeople.Add("Longsword");
+           
+
+
+
+            people.Add(new People("Rafael", "Banderes",DndItems));
+            people.Add(new People("Charles", "Conan", cranes));
+            people.Add(new People("Will", "Calavera", ItemsnPeople));
+            //.ItemsSource
+            Names.ItemsSource = people;
+            Names.SelectedIndex = 0;
+
+
+           
+
+            PopulateListBox(DndItems, vulnerabilityPhysical.Items);// this cannot handle two lists at once
+
+            PopulateListBox(ItemsnPeople, vulnerabilityElemental.Items);
+
+
+
+
+
+            //Add data to the list box. How exactly do we do that?
+            //.Items is the internal list for listbox
+            // that holds the items that will display
+            //lbDisplay.Items.Add("Charles");
+            //lbDisplay.Items.Add("Mimic");
+            //lbDisplay.Items.Add("Longsword");
+
+
+            //Rafael
+            //Charles
+            //Will
+            //Dylan
+
+            //Names.Items.Add("Rafael");
+
+            //Names.Items.Add("Charles");
+
+            //Names.Items.Add("Will");
+
+            //Names.Items.Add("Dylan");
+
+            // assign the comboboxes currently selected
+
+            //lbCmbSelectedIndex.Content = Names.SelectedIndex;
+
+            //vulnerabilityPhysical.Items.Add("Slashing");
+
+            //vulnerabilityPhysical.Items.Add("Bludgeoning");
+
+            //vulnerabilityPhysical.Items.Add("Piercing");
+
+
+
+            //vulnerabilityElemental.Items.Add("Fire");
+
+            //vulnerabilityElemental.Items.Add("Cold");
+
+            //vulnerabilityElemental.Items.Add("Lightning");
+
+        }//MainWindow
+
+        public void PopulateListBox(List<string> ItemsnPeople, ItemCollection itemCollection)
+        {
+            itemCollection.Clear ();
+            foreach (string item in ItemsnPeople)
+            {
+                itemCollection.Add(item);
+            }
         }
-    }
-}
+
+        private void lbDisplay_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //how do we get the selected item?
+            //.Selected
+
+            //Getting hte slected index
+            //.SelectedIndex
+            int selectedIndex = lbDisplay.SelectedIndex;// this will show the number index the list item is associated with
+           lblCurrentSelectionIndex.Content = selectedIndex;
+
+             string selectedName = lbDisplay.SelectedValue.ToString();// this will display the name that is linked to an index
+            namesOfItemsList.Content = selectedName;
+
+        }// lbDisplay_SelectionChanged
+
+        private void Names_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int selectedCmbIndex = Names.SelectedIndex;
+
+            lbDisplay.ItemsSource = people[selectedCmbIndex].PersonalList;
+        }
+
+
+
+
+
+
+        //ComboBox
+        //ListBox
+
+
+    }//class
+
+}//namespace
